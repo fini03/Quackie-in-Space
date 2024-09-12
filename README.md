@@ -4,7 +4,7 @@ through a labyrinth filled with challenges and riddles. The player must
 navigate through various levels, collecting a key to unlock the next stage
 while avoiding deadly traps.
 
-![](media/screens/menu.png)
+![](screens/menu.png)
 
 ### 👾 Gameplay Mechanics
 
@@ -47,12 +47,12 @@ while avoiding deadly traps.
 
 ### 👾 Game demo
 
-![](media/screens/laserfire.png)
-![](media/screens/slide.png)
-![](media/screens/gamelost.png)
-![](media/screens/chainsaw.png)
-![](media/screens/key.png)
-![](media/screens/gamewon.png)
+![](screens/laserfire.png)
+![](screens/slide.png)
+![](screens/gamelost.png)
+![](screens/chainsaw.png)
+![](screens/key.png)
+![](screens/gamewon.png)
 
 Here a short gameplay:
 
