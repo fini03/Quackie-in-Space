@@ -1,0 +1,5 @@
+/subprojects/*
+.cache
+/game.mp4
+!/subprojects/*.wrap
+!/subprojects/packagefiles

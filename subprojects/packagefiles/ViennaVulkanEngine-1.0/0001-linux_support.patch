@@ -1,0 +1,273 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 9efc960c..88912252 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.10)
+ 
+ set(CMAKE_CXX_STANDARD 20)
+ 
++set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules/")
++
+ project(ViennaVulkanEngine)
+ 
+ set(CMAKE_CONFIGURATION_TYPES "Debug;Release")
+diff --git a/README.md b/README.md
+index a400f928..9accb8d8 100644
+--- a/README.md
++++ b/README.md
+@@ -39,6 +39,37 @@ The VVE must be compiled into a static link library, under Windows 11 this is a
+ 
+ The project will be updated regularly, so it makes sense to pull the newest version regularly.
+ 
++# Set up for Linux
++
++The engine has been tested on archlinux with wayland and the Intel driver. First to install vulkan follow the installation guide from [archlinux](https://wiki.archlinux.org/title/Vulkan). Afterwards the following dependencies are needed for building:
++```
++pacman -S base-devel cmake assimp glfw-wayland glm stb vulkan-devel
++```
++For X11 users install `glfw-x11` instead of `glfw-wayland`.
++
++### Building
++- Clone both projects Vienna Vulkan Engine and Vienna Physics Engine, into the same directory, next to each other
++- Cd into Vienna Vulkan Engine and create a build folder and run CMake there
++- Run make
++- Go back to the root folder and cd into `/bin/Release` where the binary is located
++- Execute the binary
++
++List of commands:
++```
++cd ViennaVulkanEngine
++mkdir build
++cd build
++cmake ..
++make
++cd ..
++cd bin/Release
++./simplegame
++```
++
++P.S.: Incase the binary crashes while using the newest `vulkan-intel` driver, download the following driver `vulkan-intel-23.1.4-2-x86_64.pkg.tar.zst 23-Jul-2023 00:06` from [here](https://archive.archlinux.org/packages/v/vulkan-intel/). Execute the following command then:
++```
++sudo pacman -U /path/to/vulkan-intel-23.1.4-2-x86_64.pkg.tar.zst
++```
+ 
+ # Set up environment for Ubuntu 18.04 (Thanks to Lukas Walisch)
+ 
+diff --git a/VulkanEngine/CMakeLists.txt b/VulkanEngine/CMakeLists.txt
+index 9aa79dbd..98e6226a 100644
+--- a/VulkanEngine/CMakeLists.txt
++++ b/VulkanEngine/CMakeLists.txt
+@@ -4,37 +4,28 @@ set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
+ file(GLOB VulkanEngineSRC ./*.cpp ./*.c ./*.h)
+ add_library(vulkanengine STATIC ${VulkanEngineSRC} ${CMAKE_SOURCE_DIR}/external/threadpool/ThreadPool.cpp)
+ 
+-#include directories
+-target_include_directories(vulkanengine PUBLIC ${CMAKE_SOURCE_DIR}/external/Assimp/include)
+-target_include_directories(vulkanengine PUBLIC ${CMAKE_SOURCE_DIR}/external/glfw/include)
+-target_include_directories(vulkanengine PUBLIC ${CMAKE_SOURCE_DIR}/external/glm)
++# include directories
+ target_include_directories(vulkanengine PUBLIC ${CMAKE_SOURCE_DIR}/external/nuklear)
+ target_include_directories(vulkanengine PUBLIC ${CMAKE_SOURCE_DIR}/external/stb)
+ target_include_directories(vulkanengine PUBLIC ${CMAKE_SOURCE_DIR}/external/threadpool)
+ 
+ find_package(Vulkan REQUIRED)
+-include_directories(${Vulkan_INCLUDE_DIRS})
+-target_link_libraries(vulkanengine ${Vulkan_LIBRARY})
++target_include_directories(vulkanengine PUBLIC ${Vulkan_INCLUDE_DIRS})
++target_link_libraries(vulkanengine Vulkan::Vulkan)
+ 
+-#Link Assimp link libraries
+-set( AssimpDir ${CMAKE_SOURCE_DIR}/external/Assimp/lib/x64)
+-set( AssimpLibRel ${AssimpDir}/Release/assimp-vc140-mt.lib ${AssimpDir}/Release/IrrXML.lib ${AssimpDir}/Release/zlib.lib )
+-set( AssimpLibDeb ${AssimpDir}/Debug/assimp-vc140-mt.lib ${AssimpDir}/Debug/IrrXML.lib ${AssimpDir}/Debug/zlibd.lib )
+-add_library(AssimpLib STATIC IMPORTED)
++find_package(assimp REQUIRED)
++target_include_directories(vulkanengine PUBLIC ${assimp_INCLUDE_DIRS})
++target_link_libraries(vulkanengine assimp::assimp)
+ 
+-set_target_properties(AssimpLib PROPERTIES
+-             IMPORTED_CONFIGURATIONS "Debug;Release"
+-             IMPORTED_LOCATION ${AssimpLibRel}
+-             IMPORTED_LOCATION_DEBUG ${AssimpLibDeb}
+-             )
++find_package(glfw3 CONFIG REQUIRED)
++target_include_directories(vulkanengine PUBLIC ${glfw_INCLUDE_DIRS})
++target_link_libraries(vulkanengine glfw)
+ 
+ set_target_properties(vulkanengine PROPERTIES
+-            LIBRARY_OUTPUT_DIRECTORY ../lib
+-            ARCHIVE_OUTPUT_DIRECTORY ../lib
++            LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib
++            ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib
+             )
+ 
+-target_link_libraries(vulkanengine AssimpLib ${CMAKE_SOURCE_DIR}/external/glfw/lib-vc2022/glfw3.lib )
+-
+ find_package(Doxygen OPTIONAL_COMPONENTS dot mscgen dia)
+ #if(DOXYGEN_FOUND)
+ add_custom_target(doxygen
+diff --git a/VulkanEngine/VHFunctions.cpp b/VulkanEngine/VHFunctions.cpp
+index 808f4b52..05023262 100644
+--- a/VulkanEngine/VHFunctions.cpp
++++ b/VulkanEngine/VHFunctions.cpp
+@@ -4,7 +4,7 @@
+ #elif __APPLE__
+ #define VK_USE_PLATFORM_MACOS_MVK
+ #else
+-#define VK_USE_PLATFORM_XCB_KHR
++#define VK_USE_PLATFORM_WAYLAND_KHR
+ #endif
+ 
+ #include <iostream>
+diff --git a/VulkanEngine/VHFunctions.inl b/VulkanEngine/VHFunctions.inl
+index 380caef3..67cf0804 100644
+--- a/VulkanEngine/VHFunctions.inl
++++ b/VulkanEngine/VHFunctions.inl
+@@ -62,7 +62,7 @@ VK_INSTANCE_LEVEL_FUNCTION(vkDestroySurfaceKHR)
+ #if defined(VK_USE_PLATFORM_WIN32_KHR)
+ VK_INSTANCE_LEVEL_FUNCTION(vkCreateWin32SurfaceKHR)
+ #elif defined(VK_USE_PLATFORM_XCB_KHR)
+-VK_INSTANCE_LEVEL_FUNCTION(vkCreateXcbSurfaceKHR)
++VK_INSTANCE_LEVEL_FUNCTION(vkCreateWaylandSurfaceKHR)
+ #elif defined(VK_USE_PLATFORM_XLIB_KHR)
+ VK_INSTANCE_LEVEL_FUNCTION(vkCreateXlibSurfaceKHR)
+ #endif
+diff --git a/cmake/modules/FindIrrKlang.cmake b/cmake/modules/FindIrrKlang.cmake
+new file mode 100644
+index 00000000..ca19b99f
+--- /dev/null
++++ b/cmake/modules/FindIrrKlang.cmake
+@@ -0,0 +1,45 @@
++set( _irrklang_HEADER_SEARCH_DIRS
++        "/usr/include"
++        "/usr/local/include"
++        "${CMAKE_SOURCE_DIR}/includes"
++        "C:/Program Files (x86)/irrklang/include" )
++set( _irrklang_LIB_SEARCH_DIRS
++        "/usr/lib"
++        "/usr/local/lib"
++        "${CMAKE_SOURCE_DIR}/lib"
++        "C:/Program Files (x86)/irrklang/" )
++
++# Check environment for root search directory
++set( _irrklang_ENV_ROOT $ENV{IRRKLANG_ROOT} )
++if( NOT IRRKLANG_ROOT AND _irrklang_ENV_ROOT )
++    set(IRRKLANG_ROOT ${_irrklang_ENV_ROOT} )
++endif()
++
++# Put user specified location at beginning of search
++if( IRRKLANG_ROOT )
++    list( INSERT _irrklang_HEADER_SEARCH_DIRS 0 "${IRRKLANG_ROOT}/include" )
++    if(WIN32)
++        list( INSERT _irrklang_LIB_SEARCH_DIRS 0 "${IRRKLANG_ROOT}/lib" )
++    else()
++        list( INSERT _irrklang_LIB_SEARCH_DIRS 0 "${IRRKLANG_ROOT}/bin" )
++    endif()
++endif()
++
++# Search for the header
++FIND_PATH(IRRKLANG_INCLUDE_DIR "irrKlang.h"
++        PATHS ${_irrklang_HEADER_SEARCH_DIRS} )
++
++# Search for the library
++SET(_irrklang_LIBRARY_NAME "irrKlang")
++if(UNIX AND NOT APPLE)
++    SET(_irrklang_LIBRARY_NAME "libIrrKlang.so")
++elseif(UNIX AND APPLE)
++    SET(_irrklang_LIBRARY_NAME "libirrklang.dylib")
++endif(UNIX AND NOT APPLE)
++
++FIND_LIBRARY(IRRKLANG_LIBRARY NAMES ${_irrklang_LIBRARY_NAME}
++        PATHS ${_irrklang_LIB_SEARCH_DIRS} )
++INCLUDE(FindPackageHandleStandardArgs)
++FIND_PACKAGE_HANDLE_STANDARD_ARGS(IrrKlang DEFAULT_MSG
++        IRRKLANG_LIBRARY IRRKLANG_INCLUDE_DIR)
++
+diff --git a/examples/SimpleGame/CMakeLists.txt b/examples/SimpleGame/CMakeLists.txt
+index 844deaf6..5dd009b9 100644
+--- a/examples/SimpleGame/CMakeLists.txt
++++ b/examples/SimpleGame/CMakeLists.txt
+@@ -1,59 +1,35 @@
+-
+-
+-include_directories(${CMAKE_SOURCE_DIR}/VulkanEngine ${CMAKE_SOURCE_DIR}/external/irrKlang/include)
+-
+ add_executable(simplegame simplegame.cpp)
+ 
+-target_include_directories(simplegame PUBLIC ${CMAKE_SOURCE_DIR}/external/Assimp/include)
+-target_include_directories(simplegame PUBLIC ${CMAKE_SOURCE_DIR}/external/glfw/include)
+-target_include_directories(simplegame PUBLIC ${CMAKE_SOURCE_DIR}/external/glm)
+-target_include_directories(simplegame PUBLIC ${CMAKE_SOURCE_DIR}/external/nuklear)
++set_target_properties(simplegame PROPERTIES
++    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/Release
++            )
++
++# Link the VVE
++include_directories(${CMAKE_SOURCE_DIR}/VulkanEngine)
++target_link_libraries(simplegame vulkanengine)
++
++# additional include directories
+ target_include_directories(simplegame PUBLIC ${CMAKE_SOURCE_DIR}/external/stb)
+ target_include_directories(simplegame PUBLIC ${CMAKE_SOURCE_DIR}/external/threadpool)
++target_include_directories(simplegame PUBLIC ${CMAKE_SOURCE_DIR}/external/nuklear)
+ 
++# list of all dependencies here
+ find_package(Vulkan REQUIRED)
+ include_directories(${Vulkan_INCLUDE_DIRS})
++target_link_libraries(simplegame Vulkan::Vulkan)
+ 
+-set_target_properties(simplegame PROPERTIES
+-            RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin
+-            )
++set(IRRKLANG_ROOT ${CMAKE_SOURCE_DIR}/external/irrKlang)
++find_package(IrrKlang REQUIRED)
++target_include_directories(simplegame PUBLIC ${IRRKLANG_INCLUDE_DIR})
++target_link_libraries(simplegame ${IRRKLANG_LIBRARY})
+ 
+-add_library(vve STATIC IMPORTED)
+-set_target_properties(vve PROPERTIES
+-           IMPORTED_CONFIGURATIONS "Debug;Release"
+-           IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/lib/Release/vulkanengine.lib
+-           IMPORTED_LOCATION_DEBUG ${CMAKE_SOURCE_DIR}/lib/Debug/vulkanengine.lib
+-           )
++find_package(ZLIB REQUIRED)
++target_link_libraries(simplegame ZLIB::ZLIB)
+ 
+-#Link Assimp link libraries
+-set( AssimpDir ${CMAKE_SOURCE_DIR}/external/Assimp/lib/x64)
+-set( AssimpLibRel ${AssimpDir}/Release/assimp-vc140-mt.lib ${AssimpDir}/Release/IrrXML.lib ${AssimpDir}/Release/zlib.lib )
+-set( AssimpLibDeb ${AssimpDir}/Debug/assimp-vc140-mt.lib ${AssimpDir}/Debug/IrrXML.lib ${AssimpDir}/Debug/zlibd.lib )
+-add_library(AssimpLib STATIC IMPORTED)
+-set_target_properties(AssimpLib PROPERTIES
+-            IMPORTED_CONFIGURATIONS "Debug;Release"
+-            IMPORTED_LOCATION ${AssimpLibRel}
+-            IMPORTED_LOCATION_DEBUG ${AssimpLibDeb}
+-            )
++find_package(assimp REQUIRED)
++target_include_directories(simplegame PUBLIC ${assimp_INCLUDE_DIRS})
++target_link_libraries(simplegame assimp::assimp)
+ 
+-target_link_libraries(simplegame
+-          vve
+-          AssimpLib
+-          ${CMAKE_SOURCE_DIR}/external/irrKlang/lib/irrKlang.lib
+-          ${CMAKE_SOURCE_DIR}/external/glfw/lib-vc2022/glfw3.lib
+-          )
+-
+-find_package(Vulkan REQUIRED)
+-
+-
+-#set( CMAKE_VS_SDK_EXECUTABLE_DIRECTORIES $(CMAKE_VS_SDK_EXECUTABLE_DIRECTORIES);$(VULKAN_SDK);)
+-
+-file(COPY ${CMAKE_SOURCE_DIR}/external/Assimp/lib/x64/Debug/assimp-vc140-mt.dll DESTINATION ${CMAKE_SOURCE_DIR}/bin/Debug)
+-file(COPY ${CMAKE_SOURCE_DIR}/external/Assimp/lib/x64/Release/assimp-vc140-mt.dll DESTINATION ${CMAKE_SOURCE_DIR}/bin/Release)
+-
+-file(COPY ${CMAKE_SOURCE_DIR}/external/irrKlang/bin/ikpFlac.dll DESTINATION ${CMAKE_SOURCE_DIR}/bin/Debug)
+-file(COPY ${CMAKE_SOURCE_DIR}/external/irrKlang/bin/ikpMP3.dll DESTINATION ${CMAKE_SOURCE_DIR}/bin/Debug)
+-file(COPY ${CMAKE_SOURCE_DIR}/external/irrKlang/bin/irrKlang.dll DESTINATION ${CMAKE_SOURCE_DIR}/bin/Debug)
+-file(COPY ${CMAKE_SOURCE_DIR}/external/irrKlang/bin/ikpFlac.dll DESTINATION ${CMAKE_SOURCE_DIR}/bin/Release)
+-file(COPY ${CMAKE_SOURCE_DIR}/external/irrKlang/bin/ikpMP3.dll DESTINATION ${CMAKE_SOURCE_DIR}/bin/Release)
+-file(COPY ${CMAKE_SOURCE_DIR}/external/irrKlang/bin/irrKlang.dll DESTINATION ${CMAKE_SOURCE_DIR}/bin/Release)
++find_package(glm CONFIG REQUIRED)
++target_include_directories(simplegame PUBLIC ${glm_INCLUDE_DIRS})
++target_link_libraries(simplegame glm)

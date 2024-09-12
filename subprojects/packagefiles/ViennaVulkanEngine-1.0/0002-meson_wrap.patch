@@ -1,0 +1,21 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 88912252..e17e997f 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -9,4 +9,3 @@ project(ViennaVulkanEngine)
+ set(CMAKE_CONFIGURATION_TYPES "Debug;Release")
+ 
+ add_subdirectory(VulkanEngine)
+-add_subdirectory(examples)
+diff --git a/VulkanEngine/CMakeLists.txt b/VulkanEngine/CMakeLists.txt
+index 98e6226a..7dc2528b 100644
+--- a/VulkanEngine/CMakeLists.txt
++++ b/VulkanEngine/CMakeLists.txt
+@@ -5,6 +5,7 @@ file(GLOB VulkanEngineSRC ./*.cpp ./*.c ./*.h)
+ add_library(vulkanengine STATIC ${VulkanEngineSRC} ${CMAKE_SOURCE_DIR}/external/threadpool/ThreadPool.cpp)
+ 
+ # include directories
++target_include_directories(vulkanengine PUBLIC ${CMAKE_SOURCE_DIR}/VulkanEngine)
+ target_include_directories(vulkanengine PUBLIC ${CMAKE_SOURCE_DIR}/external/nuklear)
+ target_include_directories(vulkanengine PUBLIC ${CMAKE_SOURCE_DIR}/external/stb)
+ target_include_directories(vulkanengine PUBLIC ${CMAKE_SOURCE_DIR}/external/threadpool)

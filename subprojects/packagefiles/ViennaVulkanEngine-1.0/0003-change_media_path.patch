@@ -1,0 +1,298 @@
+diff --git a/VulkanEngine/VEEventListenerGLFW.cpp b/VulkanEngine/VEEventListenerGLFW.cpp
+index 00dcd3d4..8c1a6520 100644
+--- a/VulkanEngine/VEEventListenerGLFW.cpp
++++ b/VulkanEngine/VEEventListenerGLFW.cpp
+@@ -262,7 +262,7 @@ namespace ve
+ 
+ 			m_numScreenshot++;
+ 
+-			std::string name("../../media/screenshots/screenshot" + std::to_string(m_numScreenshot - 1) + ".jpg");
++			std::string name("media/screenshots/screenshot" + std::to_string(m_numScreenshot - 1) + ".jpg");
+ 			stbi_write_jpg(name.c_str(), extent.width, extent.height, 4, dataImage, 4 * extent.width);
+ 			delete[] dataImage;
+ 
+@@ -296,7 +296,7 @@ namespace ve
+ 					}
+ 				}
+ 
+-				std::string name("../../media/screenshots/screenshot" + std::to_string(m_numScreenshot) + ".jpg");
++				std::string name("media/screenshots/screenshot" + std::to_string(m_numScreenshot) + ".jpg");
+ 				stbi_write_jpg(name.c_str(), extent.width, extent.height, 1, dataImage2, extent.width);
+ 				delete[] dataImage;
+ 				delete[] dataImage2;
+diff --git a/VulkanEngine/VESceneManager.cpp b/VulkanEngine/VESceneManager.cpp
+index f2847a50..5b1eb1fc 100644
+--- a/VulkanEngine/VESceneManager.cpp
++++ b/VulkanEngine/VESceneManager.cpp
+@@ -7,10 +7,10 @@
+ 
+ #include "VEInclude.h"
+ 
+-#define STANDARD_MESH_CUBE "../../media/models/standard/cube.obj/cube"
+-#define STANDARD_MESH_INVCUBE "../../media/models/standard/invcube.obj/cube"
+-#define STANDARD_MESH_PLANE "../../media/models/standard/plane.obj/plane"
+-#define STANDARD_MESH_SPHERE "../../media/models/standard/sphere.obj/sphere"
++#define STANDARD_MESH_CUBE "media/models/standard/cube.obj/cube"
++#define STANDARD_MESH_INVCUBE "media/models/standard/invcube.obj/cube"
++#define STANDARD_MESH_PLANE "media/models/standard/plane.obj/plane"
++#define STANDARD_MESH_SPHERE "media/models/standard/sphere.obj/sphere"
+ 
+ namespace ve
+ {
+@@ -64,10 +64,10 @@ namespace ve
+ 		std::vector<VEMesh *> meshes;
+ 		std::vector<VEMaterial *> materials;
+ 
+-		loadAssets("../../media/models/standard", "cube.obj", 0, meshes, materials);
+-		loadAssets("../../media/models/standard", "invcube.obj", aiProcess_FlipWindingOrder, meshes, materials);
+-		loadAssets("../../media/models/standard", "plane.obj", 0, meshes, materials);
+-		loadAssets("../../media/models/standard", "sphere.obj", 0, meshes, materials);
++		loadAssets("media/models/standard", "cube.obj", 0, meshes, materials);
++		loadAssets("media/models/standard", "invcube.obj", aiProcess_FlipWindingOrder, meshes, materials);
++		loadAssets("media/models/standard", "plane.obj", 0, meshes, materials);
++		loadAssets("media/models/standard", "sphere.obj", 0, meshes, materials);
+ 
+ 		m_rootSceneNode = new VESceneNode("RootSceneNode");
+ 	};
+diff --git a/VulkanEngine/VESubrenderDF_C1.cpp b/VulkanEngine/VESubrenderDF_C1.cpp
+index 32d8fcfd..bf1a192d 100644
+--- a/VulkanEngine/VESubrenderDF_C1.cpp
++++ b/VulkanEngine/VESubrenderDF_C1.cpp
+@@ -28,7 +28,7 @@ namespace ve
+ 
+ 		m_pipelines.resize(1);
+ 		vh::vhPipeCreateGraphicsPipeline(m_renderer.getDevice(),
+-			{ "../../media/shader/Deferred/C1/vert.spv", "../../media/shader/Deferred/C1/frag.spv" },
++			{ "media/shader/Deferred/C1/vert.spv", "media/shader/Deferred/C1/frag.spv" },
+ 			m_renderer.getSwapChainExtent(),
+ 			m_pipelineLayout, m_renderer.getRenderPassOffscreen(),
+ 			{},
+diff --git a/VulkanEngine/VESubrenderDF_Composer.cpp b/VulkanEngine/VESubrenderDF_Composer.cpp
+index ebb10174..32cd02ca 100644
+--- a/VulkanEngine/VESubrenderDF_Composer.cpp
++++ b/VulkanEngine/VESubrenderDF_Composer.cpp
+@@ -40,8 +40,8 @@ namespace ve
+ 
+ 		m_pipelines.resize(1);
+ 		vh::vhPipeCreateGraphicsPipeline(m_renderer.getDevice(),
+-			{ "../../media/shader/Deferred/Composition/vert.spv",
+-			 "../../media/shader/Deferred/Composition/frag.spv" },
++			{ "media/shader/Deferred/Composition/vert.spv",
++			 "media/shader/Deferred/Composition/frag.spv" },
+ 			m_renderer.getSwapChainExtent(),
+ 			m_pipelineLayout, m_renderer.getRenderPassOnscreen(),
+ 			{ VK_DYNAMIC_STATE_BLEND_CONSTANTS },
+diff --git a/VulkanEngine/VESubrenderDF_D.cpp b/VulkanEngine/VESubrenderDF_D.cpp
+index cb02c43b..c24bdec7 100644
+--- a/VulkanEngine/VESubrenderDF_D.cpp
++++ b/VulkanEngine/VESubrenderDF_D.cpp
+@@ -34,7 +34,7 @@ namespace ve
+ 
+ 		m_pipelines.resize(1);
+ 		vh::vhPipeCreateGraphicsPipeline(m_renderer.getDevice(),
+-			{ "../../media/shader/Deferred/D/vert.spv", "../../media/shader/Deferred/D/frag.spv" },
++			{ "media/shader/Deferred/D/vert.spv", "media/shader/Deferred/D/frag.spv" },
+ 			m_renderer.getSwapChainExtent(),
+ 			m_pipelineLayout, m_renderer.getRenderPassOffscreen(),
+ 			{ VK_DYNAMIC_STATE_BLEND_CONSTANTS },
+diff --git a/VulkanEngine/VESubrenderDF_DN.cpp b/VulkanEngine/VESubrenderDF_DN.cpp
+index fc6e1c1a..69117c78 100644
+--- a/VulkanEngine/VESubrenderDF_DN.cpp
++++ b/VulkanEngine/VESubrenderDF_DN.cpp
+@@ -36,7 +36,7 @@ namespace ve
+ 
+ 		m_pipelines.resize(1);
+ 		vh::vhPipeCreateGraphicsPipeline(m_renderer.getDevice(),
+-			{ "../../media/shader/Deferred/DN/vert.spv", "../../media/shader/Deferred/DN/frag.spv" },
++			{ "media/shader/Deferred/DN/vert.spv", "media/shader/Deferred/DN/frag.spv" },
+ 			m_renderer.getSwapChainExtent(),
+ 			m_pipelineLayout, m_renderer.getRenderPassOffscreen(),
+ 			{ VK_DYNAMIC_STATE_BLEND_CONSTANTS },
+diff --git a/VulkanEngine/VESubrenderDF_Shadow.cpp b/VulkanEngine/VESubrenderDF_Shadow.cpp
+index 4f4ae8c3..a6925219 100644
+--- a/VulkanEngine/VESubrenderDF_Shadow.cpp
++++ b/VulkanEngine/VESubrenderDF_Shadow.cpp
+@@ -29,7 +29,7 @@ namespace ve
+ 
+ 		m_pipelines.resize(1);
+ 		vh::vhPipeCreateGraphicsShadowPipeline(m_renderer.getDevice(),
+-			"../../media/shader/Deferred/Shadow/vert.spv",
++			"media/shader/Deferred/Shadow/vert.spv",
+ 			m_renderer.getShadowMapExtent(),
+ 			m_pipelineLayout, m_renderer.getRenderPassShadow(),
+ 			&m_pipelines[0]);
+diff --git a/VulkanEngine/VESubrenderDF_Skyplane.cpp b/VulkanEngine/VESubrenderDF_Skyplane.cpp
+index 2903f5cb..2e2185ca 100644
+--- a/VulkanEngine/VESubrenderDF_Skyplane.cpp
++++ b/VulkanEngine/VESubrenderDF_Skyplane.cpp
+@@ -34,8 +34,8 @@ namespace ve
+ 
+ 		m_pipelines.resize(1);
+ 		vh::vhPipeCreateGraphicsPipeline(m_renderer.getDevice(),
+-			{ "../../media/shader/Deferred/Skyplane/vert.spv",
+-			 "../../media/shader/Deferred/Skyplane/frag.spv" },
++			{ "media/shader/Deferred/Skyplane/vert.spv",
++			 "media/shader/Deferred/Skyplane/frag.spv" },
+ 			m_renderer.getSwapChainExtent(),
+ 			m_pipelineLayout, m_renderer.getRenderPassOffscreen(),
+ 			{},
+diff --git a/VulkanEngine/VESubrenderFW_C1.cpp b/VulkanEngine/VESubrenderFW_C1.cpp
+index e0adb4a8..c0cf6e61 100644
+--- a/VulkanEngine/VESubrenderFW_C1.cpp
++++ b/VulkanEngine/VESubrenderFW_C1.cpp
+@@ -29,7 +29,7 @@ namespace ve
+ 
+ 		m_pipelines.resize(1);
+ 		vh::vhPipeCreateGraphicsPipeline(m_renderer.getDevice(),
+-			{ "../../media/shader/Forward/C1/vert.spv", "../../media/shader/Forward/C1/frag.spv" },
++			{ "media/shader/Forward/C1/vert.spv", "media/shader/Forward/C1/frag.spv" },
+ 			m_renderer.getSwapChainExtent(),
+ 			m_pipelineLayout, m_renderer.getRenderPass(),
+ 			{},
+diff --git a/VulkanEngine/VESubrenderFW_Cloth.cpp b/VulkanEngine/VESubrenderFW_Cloth.cpp
+index bdc8aadc..15acf04f 100644
+--- a/VulkanEngine/VESubrenderFW_Cloth.cpp
++++ b/VulkanEngine/VESubrenderFW_Cloth.cpp
+@@ -27,7 +27,7 @@ namespace ve
+ 
+ 		m_pipelines.resize(1);
+ 		vh::vhPipeCreateGraphicsPipeline(m_renderer.getDevice(),
+-			{ "../../media/shader/Forward/D/vert.spv", "../../media/shader/Forward/Cloth/frag.spv" },
++			{ "media/shader/Forward/D/vert.spv", "media/shader/Forward/Cloth/frag.spv" },
+ 			m_renderer.getSwapChainExtent(), m_pipelineLayout, m_renderer.getRenderPass(),
+ 			{ VK_DYNAMIC_STATE_BLEND_CONSTANTS }, &m_pipelines[0]);
+ 
+diff --git a/VulkanEngine/VESubrenderFW_D.cpp b/VulkanEngine/VESubrenderFW_D.cpp
+index 752e5066..69081707 100644
+--- a/VulkanEngine/VESubrenderFW_D.cpp
++++ b/VulkanEngine/VESubrenderFW_D.cpp
+@@ -36,7 +36,7 @@ namespace ve
+ 
+ 		m_pipelines.resize(1);
+ 		vh::vhPipeCreateGraphicsPipeline(m_renderer.getDevice(),
+-			{ "../../media/shader/Forward/D/vert.spv", "../../media/shader/Forward/D/frag.spv" },
++			{ "media/shader/Forward/D/vert.spv", "media/shader/Forward/D/frag.spv" },
+ 			m_renderer.getSwapChainExtent(),
+ 			m_pipelineLayout, m_renderer.getRenderPass(),
+ 			{ VK_DYNAMIC_STATE_BLEND_CONSTANTS },
+diff --git a/VulkanEngine/VESubrenderFW_DN.cpp b/VulkanEngine/VESubrenderFW_DN.cpp
+index 7da41f7f..dadbca67 100644
+--- a/VulkanEngine/VESubrenderFW_DN.cpp
++++ b/VulkanEngine/VESubrenderFW_DN.cpp
+@@ -37,7 +37,7 @@ namespace ve
+ 
+ 		m_pipelines.resize(1);
+ 		vh::vhPipeCreateGraphicsPipeline(m_renderer.getDevice(),
+-			{ "../../media/shader/Forward/DN/vert.spv", "../../media/shader/Forward/DN/frag.spv" },
++			{ "media/shader/Forward/DN/vert.spv", "media/shader/Forward/DN/frag.spv" },
+ 			m_renderer.getSwapChainExtent(),
+ 			m_pipelineLayout, m_renderer.getRenderPass(),
+ 			{ VK_DYNAMIC_STATE_BLEND_CONSTANTS },
+diff --git a/VulkanEngine/VESubrenderFW_Shadow.cpp b/VulkanEngine/VESubrenderFW_Shadow.cpp
+index 31ede387..2631630a 100644
+--- a/VulkanEngine/VESubrenderFW_Shadow.cpp
++++ b/VulkanEngine/VESubrenderFW_Shadow.cpp
+@@ -29,7 +29,7 @@ namespace ve
+ 
+ 		m_pipelines.resize(1);
+ 		vh::vhPipeCreateGraphicsShadowPipeline(m_renderer.getDevice(),
+-			"../../media/shader/Forward/Shadow/vert.spv",
++			"media/shader/Forward/Shadow/vert.spv",
+ 			m_renderer.getShadowMapExtent(),
+ 			m_pipelineLayout,
+ 			m_renderer.getRenderPassShadow(),
+diff --git a/VulkanEngine/VESubrenderFW_Skyplane.cpp b/VulkanEngine/VESubrenderFW_Skyplane.cpp
+index fca0cdc1..96575a82 100644
+--- a/VulkanEngine/VESubrenderFW_Skyplane.cpp
++++ b/VulkanEngine/VESubrenderFW_Skyplane.cpp
+@@ -36,8 +36,8 @@ namespace ve
+ 
+ 		m_pipelines.resize(1);
+ 		vh::vhPipeCreateGraphicsPipeline(m_renderer.getDevice(),
+-			{ "../../media/shader/Forward/Skyplane/vert.spv",
+-			 "../../media/shader/Forward/Skyplane/frag.spv" },
++			{ "media/shader/Forward/Skyplane/vert.spv",
++			 "media/shader/Forward/Skyplane/frag.spv" },
+ 			m_renderer.getSwapChainExtent(),
+ 			m_pipelineLayout, m_renderer.getRenderPass(),
+ 			{},
+diff --git a/VulkanEngine/VESubrenderRayTracingKHR_DN.cpp b/VulkanEngine/VESubrenderRayTracingKHR_DN.cpp
+index 141226c5..2f08444d 100644
+--- a/VulkanEngine/VESubrenderRayTracingKHR_DN.cpp
++++ b/VulkanEngine/VESubrenderRayTracingKHR_DN.cpp
+@@ -156,7 +156,7 @@ namespace ve
+ 			*/
+ 		std::vector<VkPipelineShaderStageCreateInfo> shaderStages;
+ 
+-		auto rgenSCode = vh::vhFileRead("../../media/shader/RayTracing_KHR/rgen.spv");
++		auto rgenSCode = vh::vhFileRead("media/shader/RayTracing_KHR/rgen.spv");
+ 		VkShaderModule rgenSModule = vh::vhPipeCreateShaderModule(m_renderer.getDevice(), rgenSCode);
+ 		// Ray generation group
+ 		{
+@@ -177,9 +177,9 @@ namespace ve
+ 			m_shaderGroups.push_back(shaderGroup);
+ 		}
+ 
+-		auto missSCode = vh::vhFileRead("../../media/shader/RayTracing_KHR/rmiss.spv");
++		auto missSCode = vh::vhFileRead("media/shader/RayTracing_KHR/rmiss.spv");
+ 		VkShaderModule missSModule = vh::vhPipeCreateShaderModule(m_renderer.getDevice(), missSCode);
+-		auto missSCodeShadow = vh::vhFileRead("../../media/shader/RayTracing_KHR//shadow_rmiss.spv");
++		auto missSCodeShadow = vh::vhFileRead("media/shader/RayTracing_KHR//shadow_rmiss.spv");
+ 		VkShaderModule missSModuleShadow = vh::vhPipeCreateShaderModule(m_renderer.getDevice(), missSCodeShadow);
+ 		// Miss group
+ 		{
+@@ -209,7 +209,7 @@ namespace ve
+ 			m_shaderGroups.push_back(shaderGroup);
+ 		}
+ 
+-		auto hitSCode = vh::vhFileRead("../../media/shader/RayTracing_KHR/rchit.spv");
++		auto hitSCode = vh::vhFileRead("media/shader/RayTracing_KHR/rchit.spv");
+ 		VkShaderModule hitSModule = vh::vhPipeCreateShaderModule(m_renderer.getDevice(), hitSCode);
+ 		// Closest hit group
+ 		{
+diff --git a/VulkanEngine/VESubrenderRayTracingNV_DN.cpp b/VulkanEngine/VESubrenderRayTracingNV_DN.cpp
+index 2b4cbdec..4963a9f8 100644
+--- a/VulkanEngine/VESubrenderRayTracingNV_DN.cpp
++++ b/VulkanEngine/VESubrenderRayTracingNV_DN.cpp
+@@ -153,24 +153,24 @@ namespace ve
+ 
+ 		nv_helpers_vk::RayTracingPipelineGenerator pipelineGen;
+ 		// We use only one ray generation, that will implement the camera model
+-		auto rayGenShaderCode = vh::vhFileRead("../../media/shader/RayTracing_NV/rgen.spv");
++		auto rayGenShaderCode = vh::vhFileRead("media/shader/RayTracing_NV/rgen.spv");
+ 		VkShaderModule rayGenModule = vh::vhPipeCreateShaderModule(m_renderer.getDevice(), rayGenShaderCode);
+ 		m_rayGenIndex = pipelineGen.AddRayGenShaderStage(rayGenModule);
+ 
+ 		// The first miss shader is used to look-up the environment in case the rays
+ 		// from the camera miss the geometry
+-		auto missShaderCode = vh::vhFileRead("../../media/shader/RayTracing_NV/rmiss.spv");
++		auto missShaderCode = vh::vhFileRead("media/shader/RayTracing_NV/rmiss.spv");
+ 		VkShaderModule missModule = vh::vhPipeCreateShaderModule(m_renderer.getDevice(), missShaderCode);
+ 		m_missIndex = pipelineGen.AddMissShaderStage(missModule);
+ 
+ 		// If we hit an object the shadow_miss shader will be used to define if object must be lighted.
+-		auto shadowMissShaderCode = vh::vhFileRead("../../media/shader/RayTracing_NV/shadow_rmiss.spv");
++		auto shadowMissShaderCode = vh::vhFileRead("media/shader/RayTracing_NV/shadow_rmiss.spv");
+ 		VkShaderModule shadowMissModule = vh::vhPipeCreateShaderModule(m_renderer.getDevice(), shadowMissShaderCode);
+ 		m_shadowMissIndex = pipelineGen.AddMissShaderStage(shadowMissModule);
+ 
+ 		// hit shader for all entiteis in a hit group with index 0
+ 		m_hitGroupIndex = pipelineGen.StartHitGroup();
+-		auto closestHitShaderCode = vh::vhFileRead("../../media/shader/RayTracing_NV/rchit.spv");
++		auto closestHitShaderCode = vh::vhFileRead("media/shader/RayTracing_NV/rchit.spv");
+ 		VkShaderModule closestHitModule = vh::vhPipeCreateShaderModule(m_renderer.getDevice(), closestHitShaderCode);
+ 		pipelineGen.AddHitShaderStage(closestHitModule, VK_SHADER_STAGE_CLOSEST_HIT_BIT_NV);
+ 		pipelineGen.EndHitGroup();
+diff --git a/VulkanEngine/VESubrender_Nuklear.cpp b/VulkanEngine/VESubrender_Nuklear.cpp
+index 8e8c28ee..5b0e2835 100644
+--- a/VulkanEngine/VESubrender_Nuklear.cpp
++++ b/VulkanEngine/VESubrender_Nuklear.cpp
+@@ -45,7 +45,7 @@ namespace ve
+ 		// /* Load Cursor: if you uncomment cursor loading please hide the cursor */
+ 		{
+ 			nk_glfw3_font_stash_begin(&atlas);
+-			struct nk_font *droid = nk_font_atlas_add_from_file(atlas, "../../media/fonts/DroidSans.ttf", 30, 0);
++			struct nk_font *droid = nk_font_atlas_add_from_file(atlas, "media/fonts/DroidSans.ttf", 30, 0);
+ 			/*struct nk_font *roboto = nk_font_atlas_add_from_file(atlas, "fonts/Roboto-Regular.ttf", 14, 0);*/
+ 			/*struct nk_font *future = nk_font_atlas_add_from_file(atlas, "fonts/kenvector_future_thin.ttf", 13, 0);*/
+ 			/*struct nk_font *clean = nk_font_atlas_add_from_file(atlas,  "fonts/ProggyClean.ttf", 12, 0);*/

@@ -1,0 +1,10 @@
+[wrap-git]
+directory = ViennaVulkanEngine-1.0
+url = https://github.com/hlavacs/ViennaVulkanEngine.git
+revision = 39f5ea467294bbb85fc00c9f1a100ea475fcdfb0
+depth = 1
+method = cmake
+diff_files = ViennaVulkanEngine-1.0/0001-linux_support.patch, ViennaVulkanEngine-1.0/0002-meson_wrap.patch, ViennaVulkanEngine-1.0/0003-change_media_path.patch, ViennaVulkanEngine-1.0/0004-fix-shutdown-crash.patch, ViennaVulkanEngine-1.0/0005-nuklear-update.patch 
+
+[provide]
+ViennaVulkanEngine = vulkanengine_dep

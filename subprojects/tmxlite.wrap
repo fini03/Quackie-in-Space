@@ -1,0 +1,8 @@
+[wrap-file]
+directory = tmxlite-1.4.4
+source_url = https://github.com/fallahn/tmxlite/archive/v1.4.4/tmxlite-1.4.4.tar.gz
+source_filename = tmxlite-1.4.4.tar.gz
+source_hash = ec8893efc8396308f291c284cb09f007441a15aabbb0e5722096cf79c65c9e58
+
+[provide]
+tmxlite = tmxlite_dep

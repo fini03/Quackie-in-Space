@@ -1,0 +1,20 @@
+diff --git a/VulkanEngine/VEEngine.cpp b/VulkanEngine/VEEngine.cpp
+index 7d145409..de986563 100644
+--- a/VulkanEngine/VEEngine.cpp
++++ b/VulkanEngine/VEEngine.cpp
+@@ -153,13 +153,14 @@ namespace ve
+ 		vkDeviceWaitIdle(m_pRenderer->getDevice());
+ 		m_pSceneManager->closeSceneManager();
+ 		m_pRenderer->closeRenderer();
+-		m_pWindow->closeWindow();
+ 
+ 		if (m_debug)
+ 			vhDebugDestroyReportCallbackEXT(m_instance, callback, nullptr);
+ 
+ 		vkDestroySurfaceKHR(m_instance, m_pRenderer->m_surface, nullptr);
+ 		vkDestroyInstance(m_instance, nullptr);
++
++		m_pWindow->closeWindow();
+ 	}
+ 
+ 	//-------------------------------------------------------------------------------------------------------
