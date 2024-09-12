@@ -4,7 +4,7 @@ through a labyrinth filled with challenges and riddles. The player must
 navigate through various levels, collecting a key to unlock the next stage
 while avoiding deadly traps.
 
-<img src="https://github.com/fini03/Frendos/blob/main/media/screens/menu.png">
+<img src="https://github.com/fini03/Quackie-in-Space/blob/main/media/screens/menu.png">
 
 ### 👾 Gameplay Mechanics
 
@@ -49,21 +49,21 @@ while avoiding deadly traps.
 
 <table>
   <tr>
-    <td> <img src="https://github.com/fini03/Frendos/blob/main/media/screens/laserfire.png"  alt="1" width = 512px height = 440px ></td>
-    <td><img src="https://github.com/fini03/Frendos/blob/main/media/screens/slide.png" alt="2" width = 512px height = 440px></td>
+    <td> <img src="https://github.com/fini03/Quackie-in-Space/blob/main/media/screens/laserfire.png"  alt="1" width = 512px height = 440px ></td>
+    <td><img src="https://github.com/fini03/Quackie-in-Space/blob/main/media/screens/slide.png" alt="2" width = 512px height = 440px></td>
    </tr> 
    <tr>
-      <td><img src="https://github.com/fini03/Frendos/blob/main/media/screens/gamelost.png" alt="3" width = 512px height = 440px></td>
-      <td><img src="https://github.com/fini03/Frendos/blob/main/media/screens/chainsaw.png" align="right" alt="4" width = 512px height = 440px>
+      <td><img src="https://github.com/fini03/Quackie-in-Space/blob/main/media/screens/gamelost.png" alt="3" width = 512px height = 440px></td>
+      <td><img src="https://github.com/fini03/Quackie-in-Space/blob/main/media/screens/chainsaw.png" align="right" alt="4" width = 512px height = 440px>
   </td>
   </tr>
    <tr>
-      <td><img src="https://github.com/fini03/Frendos/blob/main/media/screens/key.png" alt="3" width = 512px height = 440px></td>
-      <td><img src="https://github.com/fini03/Frendos/blob/main/media/screens/gamewon.png" align="right" alt="4" width = 512px height = 440px>
+      <td><img src="https://github.com/fini03/Quackie-in-Space/blob/main/media/screens/key.png" alt="3" width = 512px height = 440px></td>
+      <td><img src="https://github.com/fini03/Quackie-in-Space/blob/main/media/screens/gamewon.png" align="right" alt="4" width = 512px height = 440px>
   </td>
   </tr>
 </table>
 
 Here a short gameplay:
 
-https://github.com/fini03/Frendos/assets/112564342/d7357660-0af4-4244-8f02-3c4f8460e461
+https://github.com/fini03/Quackie-in-Space/assets/112564342/d7357660-0af4-4244-8f02-3c4f8460e461
