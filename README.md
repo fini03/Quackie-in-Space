@@ -4,7 +4,7 @@ through a labyrinth filled with challenges and riddles. The player must
 navigate through various levels, collecting a key to unlock the next stage
 while avoiding deadly traps.
 
-![](https://github.com/fini03/Quackie-in-Space/blob/main/media/screens/menu.png)
+![](media/screens/menu.png)
 
 ### 👾 Gameplay Mechanics
 
@@ -48,11 +48,11 @@ while avoiding deadly traps.
 ### 👾 Game demo
 
 ![](media/screens/laserfire.png)
-![](https://github.com/fini03/Quackie-in-Space/media/screens/slide.png)
-![](https://github.com/fini03/Quackie-in-Space/media/screens/gamelost.png)
-![](https://github.com/fini03/Quackie-in-Space/media/screens/chainsaw.png)
-![](https://github.com/fini03/Quackie-in-Space/media/screens/key.png)
-![](https://github.com/fini03/Quackie-in-Space/media/screens/gamewon.png)
+![](media/screens/slide.png)
+![](media/screens/gamelost.png)
+![](media/screens/chainsaw.png)
+![](media/screens/key.png)
+![](media/screens/gamewon.png)
 
 Here a short gameplay:
 
