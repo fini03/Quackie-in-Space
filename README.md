@@ -47,12 +47,12 @@ while avoiding deadly traps.
 
 ### 👾 Game demo
 
-![](https://github.com/fini03/Quackie-in-Space/blob/main/media/screens/laserfire.png)
-![](https://github.com/fini03/Quackie-in-Space/blob/main/media/screens/slide.png)
-![](https://github.com/fini03/Quackie-in-Space/blob/main/media/screens/gamelost.png)
-![](https://github.com/fini03/Quackie-in-Space/blob/main/media/screens/chainsaw.png)
-![](https://github.com/fini03/Quackie-in-Space/blob/main/media/screens/key.png)
-![](https://github.com/fini03/Quackie-in-Space/blob/main/media/screens/gamewon.png)
+![](https://github.com/fini03/Quackie-in-Space/media/screens/laserfire.png)
+![](https://github.com/fini03/Quackie-in-Space/media/screens/slide.png)
+![](https://github.com/fini03/Quackie-in-Space/media/screens/gamelost.png)
+![](https://github.com/fini03/Quackie-in-Space/media/screens/chainsaw.png)
+![](https://github.com/fini03/Quackie-in-Space/media/screens/key.png)
+![](https://github.com/fini03/Quackie-in-Space/media/screens/gamewon.png)
 
 Here a short gameplay:
 
