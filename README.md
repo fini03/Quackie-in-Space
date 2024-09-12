@@ -47,22 +47,12 @@ while avoiding deadly traps.
 
 ### 👾 Game demo
 
-<table>
-  <tr>
-    <td> <img src="https://github.com/fini03/Quackie-in-Space/blob/main/media/screens/laserfire.png"  alt="1" width = 337px height = 236px ></td>
-    <td><img src="https://github.com/fini03/Quackie-in-Space/blob/main/media/screens/slide.png" alt="2" width = 337px height = 236px></td>
-   </tr> 
-   <tr>
-      <td><img src="https://github.com/fini03/Quackie-in-Space/blob/main/media/screens/gamelost.png" alt="3" width = 337px height = 236px></td>
-      <td><img src="https://github.com/fini03/Quackie-in-Space/blob/main/media/screens/chainsaw.png" align="right" alt="4" width = 337px height = 236px>
-  </td>
-  </tr>
-   <tr>
-      <td><img src="https://github.com/fini03/Quackie-in-Space/blob/main/media/screens/key.png" alt="3" width = 337px height = 236px></td>
-      <td><img src="https://github.com/fini03/Quackie-in-Space/blob/main/media/screens/gamewon.png" align="right" alt="4" width = 337px height = 236px>
-  </td>
-  </tr>
-</table>
+<img src="https://github.com/fini03/Quackie-in-Space/blob/main/media/screens/laserfire.png">
+<img src="https://github.com/fini03/Quackie-in-Space/blob/main/media/screens/slide.png">
+<img src="https://github.com/fini03/Quackie-in-Space/blob/main/media/screens/gamelost.png">
+<img src="https://github.com/fini03/Quackie-in-Space/blob/main/media/screens/chainsaw.png">
+<img src="https://github.com/fini03/Quackie-in-Space/blob/main/media/screens/key.png">
+<img src="https://github.com/fini03/Quackie-in-Space/blob/main/media/screens/gamewon.png">
 
 Here a short gameplay:
 
