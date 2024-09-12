@@ -47,7 +47,7 @@ while avoiding deadly traps.
 
 ### 👾 Game demo
 
-![](https://github.com/fini03/Quackie-in-Space/media/screens/laserfire.png)
+![](media/screens/laserfire.png)
 ![](https://github.com/fini03/Quackie-in-Space/media/screens/slide.png)
 ![](https://github.com/fini03/Quackie-in-Space/media/screens/gamelost.png)
 ![](https://github.com/fini03/Quackie-in-Space/media/screens/chainsaw.png)
