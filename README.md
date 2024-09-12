@@ -4,7 +4,7 @@ through a labyrinth filled with challenges and riddles. The player must
 navigate through various levels, collecting a key to unlock the next stage
 while avoiding deadly traps.
 
-<img src="https://github.com/fini03/Quackie-in-Space/blob/main/media/screens/menu.png">
+![](https://github.com/fini03/Quackie-in-Space/blob/main/media/screens/menu.png)
 
 ### 👾 Gameplay Mechanics
 
